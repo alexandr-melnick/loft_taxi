@@ -35,3 +35,7 @@ img {
 button {
   cursor: pointer;
 }
+
+*:focus-visible {
+  outline: none;
+}

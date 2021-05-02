@@ -56,7 +56,7 @@
   align-items: center;
   height: 100%;
 }
-/*Home*/
+/*Login*/
 
 .form-login {
   color: #1C1A19;
@@ -119,4 +119,9 @@ color: #828282;
   color: #FDBF5A;
   margin-left: 5px;
   font-size: 16px;
+}
+
+/*profile*/
+.profile {
+  color: #1C1A19;
 }

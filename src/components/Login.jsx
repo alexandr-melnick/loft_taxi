@@ -1,6 +1,7 @@
 import React from "react";
 
-export const Home = () => {
+export const Login = ({url, onClick}) => {
+
   return (
       <div className="form-login">
         <h2>Enter</h2>
@@ -10,7 +11,7 @@ export const Home = () => {
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" name="password" size="28" placeholder="**********"/>
           <a href="#">Forgotten your password?</a>
-          <input type="button" id="enter" name="enter" value="Enter"/>
+          <input type="button" id="enter" name="enter" value="Enter" onClick={ () => onClick(url) }/>
         </form>
         <div className="new-user">
           New user?

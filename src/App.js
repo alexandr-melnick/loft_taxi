@@ -1,18 +1,31 @@
 import './App.css';
 import React from "react";
-import {Home} from "./components/Home";
+import {Login} from "./components/Login";
 import {Exit} from "./components/Exit";
 import {Profile} from "./components/Profile";
+import logo from "./img/logo.png";
+import logoWrap from "./img/logo_wrap.png";
+import {NavItem} from "./components/common/NavItem";
+import {Map} from "./components/Map";
+
+const pagesUrl = {
+    login: 'login',
+    profile: 'profile',
+    map: 'map',
+    exit: 'exit'
+}
 
 const PAGES = {
-    home: <Home />,
-    profile: <Profile />,
-    about: <Exit />,
+    [pagesUrl.login]: <Login />,
+    [pagesUrl.profile]: <Profile />,
+    [pagesUrl.exit]: <Exit />,
+    [pagesUrl.map]: <Map />
 }
+
 
 class App extends React.Component {
 
-    state = { currentPage: 'home'};
+    state = { currentPage: pagesUrl.home};
 
     navigateTo = (page) => {
         this.setState({currentPage: page})
@@ -22,19 +35,14 @@ class App extends React.Component {
         return <>
             <header className="header">
                 <div className="logo">
-                    <img src="./img/logo.png" alt="Loft Taxi"/>
+                    <img src={logo} alt="Loft Taxi"/>
                 </div>
                 <nav className="nav">
                     <ul className="nav__list">
-                        <li className="nav__item">
-                            <div className="nav__btn" onClick={() => {this.navigateTo('home')}}>Home</div>
-                        </li>
-                        <li className="nav__item">
-                            <div className="nav__btn" onClick={() => {this.navigateTo('profile')}}>Profile</div>
-                        </li>
-                        <li className="nav__item">
-                            <div className="nav__btn" onClick={() => {this.navigateTo('exit')}}>Exit</div>
-                        </li>
+                        <NavItem url={pagesUrl.map} onClick={this.navigateTo} />
+                        <NavItem url={pagesUrl.login} onClick={this.navigateTo} />
+                        <NavItem url={pagesUrl.profile} onClick={this.navigateTo} />
+                        <NavItem url={pagesUrl.exit} onClick={this.navigateTo} />
                     </ul>
                 </nav>
             </header>
@@ -42,7 +50,7 @@ class App extends React.Component {
             <main>
                 <section className="section">
                     <div className="section__left-block">
-                        <img src="./img/logo_wrap.png" alt="Loft Taxi"/>
+                        <img src={logoWrap} alt="Loft Taxi"/>
                     </div>
                     <div className="section__right-block">
                         {PAGES[this.state.currentPage]}
