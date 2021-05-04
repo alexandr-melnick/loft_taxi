@@ -5,10 +5,10 @@ import {Exit} from "./components/Exit";
 import {Profile} from "./components/Profile";
 import logo from "./img/logo.png";
 import logoWrap from "./img/logo_wrap.png";
-import {NavItem} from "./components/common/NavItem";
 import {Map} from "./components/Map";
+import {Navigation} from "./components/Navigation";
 
-const pagesUrl = {
+const pagesUrls = {
     login: 'login',
     profile: 'profile',
     map: 'map',
@@ -16,16 +16,16 @@ const pagesUrl = {
 }
 
 const PAGES = {
-    [pagesUrl.login]: <Login />,
-    [pagesUrl.profile]: <Profile />,
-    [pagesUrl.exit]: <Exit />,
-    [pagesUrl.map]: <Map />
+    [pagesUrls.login]: <Login />,
+    [pagesUrls.profile]: <Profile />,
+    [pagesUrls.exit]: <Exit />,
+    [pagesUrls.map]: <Map />
 }
 
 
 class App extends React.Component {
 
-    state = { currentPage: pagesUrl.home};
+    state = { currentPage: pagesUrls.login};
 
     navigateTo = (page) => {
         this.setState({currentPage: page})
@@ -37,14 +37,7 @@ class App extends React.Component {
                 <div className="logo">
                     <img src={logo} alt="Loft Taxi"/>
                 </div>
-                <nav className="nav">
-                    <ul className="nav__list">
-                        <NavItem url={pagesUrl.map} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.login} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.profile} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.exit} onClick={this.navigateTo} />
-                    </ul>
-                </nav>
+                <Navigation pages={pagesUrls} navigateTo={ this.navigateTo }/>
             </header>
 
             <main>
@@ -59,6 +52,6 @@ class App extends React.Component {
             </main>
         </>
     }
-};
+}
 
 export default App;
