@@ -5,8 +5,8 @@ import {Exit} from "./components/Exit";
 import {Profile} from "./components/Profile";
 import logo from "./img/logo.png";
 import logoWrap from "./img/logo_wrap.png";
-import {NavItem} from "./components/common/NavItem";
 import {Map} from "./components/Map";
+import {Navigation} from "./components/Navigation";
 
 const pagesUrls = {
     login: 'login',
@@ -25,7 +25,7 @@ const PAGES = {
 
 class App extends React.Component {
 
-    state = { currentPage: pagesUrls.home};
+    state = { currentPage: pagesUrls.login};
 
     navigateTo = (page) => {
         this.setState({currentPage: page})
@@ -37,14 +37,7 @@ class App extends React.Component {
                 <div className="logo">
                     <img src={logo} alt="Loft Taxi"/>
                 </div>
-                <nav className="nav">
-                    <ul className="nav__list">
-                        <NavItem url={pagesUrls.map} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrls.login} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrls.profile} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrls.exit} onClick={this.navigateTo} />
-                    </ul>
-                </nav>
+                <Navigation pages={pagesUrls} navigateTo={ this.navigateTo }/>
             </header>
 
             <main>
@@ -59,6 +52,6 @@ class App extends React.Component {
             </main>
         </>
     }
-};
+}
 
 export default App;
