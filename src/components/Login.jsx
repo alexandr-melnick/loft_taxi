@@ -10,12 +10,12 @@ export const Login = ({url, onClick}) => {
           <input type="email" id="email" name="email" size="28" placeholder="example@email.com"/>
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" name="password" size="28" placeholder="**********"/>
-          <a href="#">Forgotten your password?</a>
+          <span >Forgotten your password?</span>
           <input type="button" id="enter" name="enter" value="Enter" onClick={ () => onClick(url) }/>
         </form>
         <div className="new-user">
           New user?
-          <a href="#">Registration</a>
+          <span >Registration</span>
         </div>
       </div>
   )
