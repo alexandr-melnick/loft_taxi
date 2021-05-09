@@ -34,21 +34,35 @@
 }
 
 /*wrapper section*/
-.section {
+main {
   display: flex;
-  background: #1C1A19;
-  height: 89vh;
+  height: 100vh;
+  flex-direction: column;
 }
 
-.section__left-block {
+.login-section {
+  background: url("./img/background_map.png") center center/cover no-repeat;
+  height: 100%;
+}
+
+.section {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: url("./img/background_map.png") center center/cover no-repeat;
+}
+
+.left-modal {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 495px;
+  background: #1C1A19;
+  position: absolute;
+  height: 100%;
 }
 
-.section__right-block {
-  background: url("./img/background_map.png") center center no-repeat;
+.section__map {
   background-size: 100%;
   width: 100%;
   display: flex;
@@ -68,6 +82,8 @@
   align-items: center;
   background: white;
   border-radius: 40px;
+  margin-left: 47%;
+  margin-top: 15%;
 }
 
 .form-login h2 {
@@ -88,18 +104,23 @@
   margin-bottom: 10px;
 }
 
-.form input {
+.input {
   border: none;
   border-bottom: 1px solid #e4e4e4;
   margin-bottom: 25px;
   width: 335px;
 }
 
-.form a {
+.input-error {
+  border-bottom: 1px solid red;
+}
+
+.form span {
   font-size: 16px;
   color: #828282;
   text-align: right;
   margin-bottom: 50px;
+  cursor: pointer;
 }
 
 #enter {
@@ -108,20 +129,41 @@
   background: #FDBF5A;
   border-radius: 70px;
   font-size: 25px;
+  border: 1px solid transparent;
   cursor: pointer;
+}
+
+#enter:active {
+  border: 1px solid black;
 }
 
 .new-user{
 color: #828282;
 }
 
-.new-user a {
+.new-user span {
   color: #FDBF5A;
   margin-left: 5px;
   font-size: 16px;
+  cursor: pointer;
 }
 
 /*profile*/
 .profile {
   color: #1C1A19;
+}
+
+/*map*/
+.map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

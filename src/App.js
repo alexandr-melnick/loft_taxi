@@ -1,64 +1,59 @@
-import './App.css';
 import React from "react";
-import {Login} from "./components/Login";
-import {Exit} from "./components/Exit";
-import {Profile} from "./components/Profile";
-import logo from "./img/logo.png";
-import logoWrap from "./img/logo_wrap.png";
-import {NavItem} from "./components/common/NavItem";
-import {Map} from "./components/Map";
+import PropTypes from "prop-types";
+import {LoginWithAuth, Map, Profile, Header} from "./components/";
+import {LeftModal} from "./components/common/";
+import {withAuth} from "./AuthContext";
+import './App.css';
 
-const pagesUrl = {
-    login: 'login',
-    profile: 'profile',
-    map: 'map',
-    exit: 'exit'
+const pagesUrls = {
+  login: 'login',
+  profile: 'profile',
+  map: 'map',
+  exit: 'exit'
 }
-
-const PAGES = {
-    [pagesUrl.login]: <Login />,
-    [pagesUrl.profile]: <Profile />,
-    [pagesUrl.exit]: <Exit />,
-    [pagesUrl.map]: <Map />
-}
-
 
 class App extends React.Component {
+  static propTypes = {
+    navigateTo: PropTypes.func,
+    pagesUrls: PropTypes.shape({
+      login: PropTypes.string,
+      map: PropTypes.string,
+      profile: PropTypes.string,
+      exit: PropTypes.string
+    }),
+  }
 
-    state = { currentPage: pagesUrl.home};
+  state = {currentPage: pagesUrls.login};
 
-    navigateTo = (page) => {
-        this.setState({currentPage: page})
-    };
+  navigateTo = (page) => {
+    if (!this.props.isLoggedIn) return this.setState({currentPage: pagesUrls.login});
+    this.setState({currentPage: page})
+  };
 
-    render() {
-        return <>
-            <header className="header">
-                <div className="logo">
-                    <img src={logo} alt="Loft Taxi"/>
-                </div>
-                <nav className="nav">
-                    <ul className="nav__list">
-                        <NavItem url={pagesUrl.map} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.login} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.profile} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.exit} onClick={this.navigateTo} />
-                    </ul>
-                </nav>
-            </header>
+  render() {
+    return <>
+      <main>
+        {this.props.isLoggedIn ? (
+            <>
+            <Header navigateTo={this.navigateTo} pagesUrls={pagesUrls}/>
+            <section className="section">
+              <div className="section__map">
+                {this.state.currentPage === pagesUrls.map && <Map />}
+                {this.state.currentPage === pagesUrls.profile && <Profile />}
+              </div>
+            </section>
+            </>
+        ) : (
+            <section  className="login-section">
+              <LeftModal/>
+              <LoginWithAuth page={this.state.currentPage}/>
+            </section>
+          )
+        }
 
-            <main>
-                <section className="section">
-                    <div className="section__left-block">
-                        <img src={logoWrap} alt="Loft Taxi"/>
-                    </div>
-                    <div className="section__right-block">
-                        {PAGES[this.state.currentPage]}
-                    </div>
-                </section>
-            </main>
-        </>
-    }
-};
+      </main>
+    </>
+  };
+}
 
-export default App;
+export default withAuth(App);
