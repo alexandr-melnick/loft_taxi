@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import mapboxgl from 'mapbox-gl';
 
 export class Map extends Component {
-  map=null;
+  map = null;
   mapContainer = React.createRef();
 
   componentDidMount() {
@@ -23,7 +23,7 @@ export class Map extends Component {
   render() {
     return (
     <div className='map-wrapper'>
-      <div data-testing='map' className='map' ref={this.mapContainer}></div>
+      <div data-testing='map' className='map' ref={this.mapContainer}/>
     </div>
     )
   }

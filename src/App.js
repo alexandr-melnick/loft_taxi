@@ -1,12 +1,9 @@
-import './App.css';
 import React from "react";
-import {Login} from "./components/Login";
-import {Exit} from "./components/Exit";
-import {Profile} from "./components/Profile";
-import logoWrap from "./img/logo_wrap.png";
-import {Map} from "./components/Map";
-import Header from "./components/Header";
-import {LeftModal} from "./components/common/LeftModal";
+import PropTypes from "prop-types";
+import {LoginWithAuth, Map, Profile, Header} from "./components/";
+import {LeftModal} from "./components/common/";
+import {withAuth} from "./AuthContext";
+import './App.css';
 
 const pagesUrls = {
   login: 'login',
@@ -15,34 +12,48 @@ const pagesUrls = {
   exit: 'exit'
 }
 
-const PAGES = {
-  [pagesUrls.login]: <Login/>,
-  [pagesUrls.profile]: <Profile/>,
-  [pagesUrls.exit]: <Exit/>,
-  [pagesUrls.map]: <Map/>
-}
-
-
 class App extends React.Component {
+  static propTypes = {
+    navigateTo: PropTypes.func,
+    pagesUrls: PropTypes.shape({
+      login: PropTypes.string,
+      map: PropTypes.string,
+      profile: PropTypes.string,
+      exit: PropTypes.string
+    }),
+  }
 
   state = {currentPage: pagesUrls.login};
 
   navigateTo = (page) => {
+    if (!this.props.isLoggedIn) return this.setState({currentPage: pagesUrls.login});
     this.setState({currentPage: page})
   };
 
   render() {
     return <>
       <main>
-        {this.state.currentPage != 'login' ? <Header navigateTo={this.navigateTo} pagesUrls={pagesUrls}/> : <LeftModal/>}
-        <section className="section">
-          <div className="section__right-block">
-            {PAGES[this.state.currentPage]}
-          </div>
-        </section>
+        {this.props.isLoggedIn ? (
+            <>
+            <Header navigateTo={this.navigateTo} pagesUrls={pagesUrls}/>
+            <section className="section">
+              <div className="section__map">
+                {this.state.currentPage === pagesUrls.map && <Map />}
+                {this.state.currentPage === pagesUrls.profile && <Profile />}
+              </div>
+            </section>
+            </>
+        ) : (
+            <section  className="login-section">
+              <LeftModal/>
+              <LoginWithAuth page={this.state.currentPage}/>
+            </section>
+          )
+        }
+
       </main>
     </>
-  }
+  };
 }
 
-export default App;
+export default withAuth(App);

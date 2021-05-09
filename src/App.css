@@ -40,6 +40,11 @@ main {
   flex-direction: column;
 }
 
+.login-section {
+  background: url("./img/background_map.png") center center/cover no-repeat;
+  height: 100%;
+}
+
 .section {
   display: flex;
   height: 100%;
@@ -57,7 +62,7 @@ main {
   height: 100%;
 }
 
-.section__right-block {
+.section__map {
   background-size: 100%;
   width: 100%;
   display: flex;
@@ -77,7 +82,8 @@ main {
   align-items: center;
   background: white;
   border-radius: 40px;
-  margin-left: 500px;
+  margin-left: 47%;
+  margin-top: 15%;
 }
 
 .form-login h2 {
@@ -98,11 +104,15 @@ main {
   margin-bottom: 10px;
 }
 
-.form input {
+.input {
   border: none;
   border-bottom: 1px solid #e4e4e4;
   margin-bottom: 25px;
   width: 335px;
+}
+
+.input-error {
+  border-bottom: 1px solid red;
 }
 
 .form span {
@@ -119,7 +129,12 @@ main {
   background: #FDBF5A;
   border-radius: 70px;
   font-size: 25px;
+  border: 1px solid transparent;
   cursor: pointer;
+}
+
+#enter:active {
+  border: 1px solid black;
 }
 
 .new-user{

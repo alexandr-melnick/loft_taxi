@@ -1,8 +1,7 @@
 import React from "react";
+import {ucFirst} from "../../utils/caseFirst";
 
 export const NavItem = ({url, onClick}) => {
-
-  const ucFirst = (str) => str[0].toUpperCase() + str.slice(1);
 
   return (
       <li className="nav__item">

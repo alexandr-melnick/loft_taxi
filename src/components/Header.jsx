@@ -1,16 +1,25 @@
 import React from "react";
 import logo from "../img/logo.png";
-import {Navigation} from "./Navigation";
+import {NavigationWithAuth} from "./Navigation";
+import PropTypes from "prop-types";
 
-const Header = ({pagesUrls, navigateTo}) => {
+export const Header = ({pagesUrls, navigateTo}) => {
   return (
       <header className="header">
         <div className="logo">
           <img src={logo} alt="Loft Taxi"/>
         </div>
-        <Navigation pages={pagesUrls} navigateTo={navigateTo}/>
+        <NavigationWithAuth pages={pagesUrls} navigateTo={navigateTo}/>
       </header>
   )
 }
 
-export default Header;
+Header.propTypes = {
+  pagesUrls: PropTypes.shape({
+    login: PropTypes.string,
+    map: PropTypes.string,
+    profile: PropTypes.string,
+    exit: PropTypes.string
+  }),
+  navigateTo: PropTypes.func
+}
