@@ -3,15 +3,15 @@ import {NavItem, NavExit} from "./common";
 import PropTypes from "prop-types";
 import {AuthContext, withAuth} from "../AuthContext";
 
-const Navigation = ({pages, navigateTo}) => {
+const Navigation = ({pages}) => {
 
   const { logOut } =useContext(AuthContext);
 
     return (
         <nav className="nav">
           <ul className="nav__list">
-            <NavItem url={pages.map} onClick={ navigateTo } />
-            <NavItem url={pages.profile} onClick={ navigateTo } />
+            <NavItem url={pages.map} />
+            <NavItem url={pages.profile} />
             <NavExit url={pages.exit} onClick={ logOut } />
           </ul>
         </nav>

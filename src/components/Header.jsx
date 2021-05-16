@@ -1,15 +1,15 @@
 import React from "react";
 import logo from "../img/logo.png";
-import {NavigationWithAuth} from "./Navigation";
+import { NavigationWithAuth } from "./Navigation";
 import PropTypes from "prop-types";
 
-export const Header = ({pagesUrls, navigateTo}) => {
+export const Header = ({ pagesUrls }) => {
   return (
-      <header className="header">
+      <header className="header" data-testid="header">
         <div className="logo">
           <img src={logo} alt="Loft Taxi"/>
         </div>
-        <NavigationWithAuth pages={pagesUrls} navigateTo={navigateTo}/>
+        <NavigationWithAuth pages={pagesUrls} />
       </header>
   )
 }

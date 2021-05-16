@@ -1,4 +1,4 @@
-import React, {Component, createContext, useState} from "react";
+import React, { Component, createContext, useState } from "react";
 
 export const AuthContext = createContext({});
 
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
 export const withAuth = (WrappedComponent) => {
   return class extends Component {
-    render() {
+    render () {
       return (
           <AuthContext.Consumer>
             {(value) => (<WrappedComponent {...value} {...this.props}/>)}

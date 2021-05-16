@@ -1,11 +1,11 @@
 import React from "react";
-import {ucFirst} from "../../utils/caseFirst";
+import { Link } from "react-router-dom";
+import { ucFirst } from "../../utils/caseFirst";
 
-export const NavItem = ({url, onClick}) => {
-
+export const NavItem = ({ url }) => {
   return (
       <li className="nav__item">
-        <div className="nav__btn" onClick={ () => onClick(url) }>{ucFirst(url)}</div>
+        <Link className="nav__btn" to={`/${url}`}>{ucFirst(url)}</Link>
       </li>
   )
 }

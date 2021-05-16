@@ -1,17 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { AuthContext, withAuth } from "../AuthContext";
 import { Input } from "./common/Input";
-import { isEmail, validate } from "../utils/validator";
 import { Submit } from "./common/Submit";
+import { withAuth } from "../AuthContext";
+import { isEmail, validate } from "../utils/validator";
+import { Link } from "react-router-dom";
 
-const Login = () => {
-
-  const { logIn } = useContext(AuthContext);
+const Registration = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-
+  const [name, setName] = useState(false);
 
   function authenticate (e) {
     e.preventDefault();
@@ -19,22 +17,29 @@ const Login = () => {
 
     validate(password.value, setPasswordError);
     validate(email.value, setEmailError);
+    validate(name.value, setName);
     if (!isEmail(email.value)) {
       setEmailError(true);
     }
 
-    logIn(email.value, password.value);
   }
 
   return (
       <div className="form-login">
-        <h2>Enter</h2>
+        <h2>Registration</h2>
         <form className="form" onSubmit={authenticate}>
           <Input type="input"
                  size="28"
                  name="email"
                  setFunc={setEmailError}
                  placeholder="example@email.com"
+                 error={emailError}
+          />
+          <Input type="input"
+                 size="28"
+                 name="name"
+                 setFunc={setEmailError}
+                 placeholder="name"
                  error={emailError}
           />
           <Input type="password"
@@ -44,21 +49,21 @@ const Login = () => {
                  placeholder="enter your password"
                  error={passwordError}
           />
-          <span>Forgotten your password?</span>
-          <Submit type="submit" id="enter" name="enter" value="Enter" />
+          <Submit type="submit" id="enter" name="registration" value="Registration"/>
         </form>
         <div className="new-user">
-          <span>New user?</span>
-          <Link to="/signup">
-            <span className="go-to-reg">Registration</span>
+          <span>Already registered?</span>
+          <Link to="/">
+            <span className="go-to-reg">Enter</span>
           </Link>
         </div>
       </div>
   )
 }
 
-Login.propTypes = {
+Registration.propTypes = {
+  navigateTo: PropTypes.func,
+  loginPage: PropTypes.string
 }
 
-export const LoginWithAuth = withAuth(Login);
-
+export const RegistrationWithAuth = withAuth(Registration);

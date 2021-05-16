@@ -1,59 +1,54 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {LoginWithAuth, Map, Profile, Header} from "./components/";
-import {LeftModal} from "./components/common/";
-import {withAuth} from "./AuthContext";
+import { Route } from "react-router-dom"
+import { LoginWithAuth, Map, Profile, Header } from "./components/";
+import { LeftModal } from "./components/common/";
+import { withAuth } from "./AuthContext";
+import { RegistrationWithAuth } from "./components/Registration";
 import './App.css';
 
-const pagesUrls = {
+export const pagesUrls = {
   login: 'login',
   profile: 'profile',
   map: 'map',
-  exit: 'exit'
+  exit: 'exit',
+  registration: 'registration'
 }
 
 class App extends React.Component {
-  static propTypes = {
-    navigateTo: PropTypes.func,
-    pagesUrls: PropTypes.shape({
-      login: PropTypes.string,
-      map: PropTypes.string,
-      profile: PropTypes.string,
-      exit: PropTypes.string
-    }),
-  }
-
-  state = {currentPage: pagesUrls.login};
-
-  navigateTo = (page) => {
-    if (!this.props.isLoggedIn) return this.setState({currentPage: pagesUrls.login});
-    this.setState({currentPage: page})
-  };
-
-  render() {
+  render () {
     return <>
       <main>
         {this.props.isLoggedIn ? (
             <>
-            <Header navigateTo={this.navigateTo} pagesUrls={pagesUrls}/>
-            <section className="section">
-              <div className="section__map">
-                {this.state.currentPage === pagesUrls.map && <Map />}
-                {this.state.currentPage === pagesUrls.profile && <Profile />}
-              </div>
-            </section>
+              <Header pagesUrls={pagesUrls}/>
+              <section className="section" data-testid="main-section">
+                <div className="section__map">
+                  <Route path="/map" component={Map} />
+                  <Route path="/profile" component={Profile}/>
+                </div>
+              </section>
             </>
         ) : (
-            <section  className="login-section">
+            <section className="login-section" data-testid="login-section">
               <LeftModal/>
-              <LoginWithAuth page={this.state.currentPage}/>
+              <Route path="/signup" component={RegistrationWithAuth} />
+              <Route path="/" expect component={() =><LoginWithAuth regPage={pagesUrls.registration}/>} />
             </section>
-          )
+        )
         }
-
       </main>
     </>
   };
 }
 
-export default withAuth(App);
+App.propTypes = {
+  pagesUrls: PropTypes.shape({
+    login: PropTypes.string,
+    map: PropTypes.string,
+    profile: PropTypes.string,
+    exit: PropTypes.string
+  }),
+}
+
+export const WithAuthApp = withAuth(App);
