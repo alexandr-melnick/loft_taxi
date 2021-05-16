@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { Route } from "react-router-dom"
 import { LoginWithAuth, Map, Profile, Header } from "./components/";
 import { LeftModal } from "./components/common/";
-import { withAuth } from "./AuthContext";
 import { RegistrationWithAuth } from "./components/Registration";
 import './App.css';
+import { connect } from "react-redux";
+import { logIn, setToken } from "./modules/actions";
 
 export const pagesUrls = {
   login: 'login',
@@ -16,6 +17,16 @@ export const pagesUrls = {
 }
 
 class App extends React.Component {
+
+  componentDidMount () {
+    const {setToken, logIn} = this.props
+    const token = localStorage.getItem("token")
+    if(token){
+      logIn()
+      setToken(token)
+    }
+  }
+
   render () {
     return <>
       <main>
@@ -33,7 +44,7 @@ class App extends React.Component {
             <section className="login-section" data-testid="login-section">
               <LeftModal/>
               <Route path="/signup" component={RegistrationWithAuth} />
-              <Route path="/" expect component={() =><LoginWithAuth regPage={pagesUrls.registration}/>} />
+              <Route path="/" expect component={LoginWithAuth} />
             </section>
         )
         }
@@ -51,4 +62,4 @@ App.propTypes = {
   }),
 }
 
-export const WithAuthApp = withAuth(App);
+export const WithAuthApp = connect((state) => ({isLoggedIn: state.auth.isLoggedIn}), {setToken, logIn})(App);

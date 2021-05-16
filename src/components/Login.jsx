@@ -1,17 +1,15 @@
-import React, { useContext, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext, withAuth } from "../AuthContext";
 import { Input } from "./common/Input";
 import { isEmail, validate } from "../utils/validator";
 import { Submit } from "./common/Submit";
+import { connect } from "react-redux";
+import { logIn } from "../modules/actions";
 
-const Login = () => {
+const Login = ({ logIn }) => {
 
-  const { logIn } = useContext(AuthContext);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-
 
   function authenticate (e) {
     e.preventDefault();
@@ -23,7 +21,9 @@ const Login = () => {
       setEmailError(true);
     }
 
-    logIn(email.value, password.value);
+    if (email.value === 'test@test.com' && password.value === '123') {
+      logIn();
+    }
   }
 
   return (
@@ -45,7 +45,7 @@ const Login = () => {
                  error={passwordError}
           />
           <span>Forgotten your password?</span>
-          <Submit type="submit" id="enter" name="enter" value="Enter" />
+          <Submit type="submit" id="enter" name="enter" value="Enter"/>
         </form>
         <div className="new-user">
           <span>New user?</span>
@@ -57,8 +57,5 @@ const Login = () => {
   )
 }
 
-Login.propTypes = {
-}
-
-export const LoginWithAuth = withAuth(Login);
-
+export const LoginWithAuth = connect(null,{ logIn }
+)(Login);

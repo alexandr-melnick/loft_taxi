@@ -1,21 +1,20 @@
-import React, {useContext} from "react";
-import {NavItem, NavExit} from "./common";
+import React from "react";
 import PropTypes from "prop-types";
-import {AuthContext, withAuth} from "../AuthContext";
+import { connect } from "react-redux";
+import { NavItem, NavExit } from "./common";
+import { logOut } from "../modules/actions";
 
-const Navigation = ({pages}) => {
+const Navigation = ({ pages, logOut }) => {
 
-  const { logOut } =useContext(AuthContext);
-
-    return (
-        <nav className="nav">
-          <ul className="nav__list">
-            <NavItem url={pages.map} />
-            <NavItem url={pages.profile} />
-            <NavExit url={pages.exit} onClick={ logOut } />
-          </ul>
-        </nav>
-    )
+  return (
+      <nav className="nav">
+        <ul className="nav__list">
+          <NavItem url={pages.map}/>
+          <NavItem url={pages.profile}/>
+          <NavExit url={pages.exit} onClick={ () => {logOut(); localStorage.removeItem("token") } }/>
+        </ul>
+      </nav>
+  )
 }
 
 Navigation.propTypes = {
@@ -28,4 +27,4 @@ Navigation.propTypes = {
   navigateTo: PropTypes.func
 }
 
-export const NavigationWithAuth = withAuth(Navigation);
+export const NavigationWithAuth = connect(null, { logOut })(Navigation);

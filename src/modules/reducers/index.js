@@ -1,4 +1,5 @@
-import { rootReducer } from "./auth";
+import { combineReducers } from "redux";
+import { auth } from "./auth";
+import { register } from "./register"
 
-export * from './actions';
-export {rootReducer}
+export default combineReducers({ auth, register });
