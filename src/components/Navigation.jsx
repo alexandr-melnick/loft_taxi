@@ -11,7 +11,7 @@ const Navigation = ({ pages, logOut }) => {
         <ul className="nav__list">
           <NavItem url={pages.map}/>
           <NavItem url={pages.profile}/>
-          <NavExit url={pages.exit} onClick={ () => {logOut(); localStorage.removeItem("token") } }/>
+          <NavExit url={pages.exit} onClick={ () => {logOut(); localStorage.clear();} }/>
         </ul>
       </nav>
   )

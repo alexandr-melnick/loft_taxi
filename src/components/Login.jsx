@@ -4,14 +4,14 @@ import { Input } from "./common/Input";
 import { isEmail, validate } from "../utils/validator";
 import { Submit } from "./common/Submit";
 import { connect } from "react-redux";
-import { logIn } from "../modules/actions";
+import { authenticate } from "../modules/actions";
 
-const Login = ({ logIn }) => {
+const Login = ({ authenticate: qwerty }) => {
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  function authenticate (e) {
+  function authorization (e) {
     e.preventDefault();
     const { email, password } = e.target;
 
@@ -21,15 +21,13 @@ const Login = ({ logIn }) => {
       setEmailError(true);
     }
 
-    if (email.value === 'test@test.com' && password.value === '123') {
-      logIn();
-    }
+    qwerty(email.value, password.value)
   }
 
   return (
       <div className="form-login">
         <h2>Enter</h2>
-        <form className="form" onSubmit={authenticate}>
+        <form className="form" onSubmit={authorization}>
           <Input type="input"
                  size="28"
                  name="email"
@@ -57,5 +55,5 @@ const Login = ({ logIn }) => {
   )
 }
 
-export const LoginWithAuth = connect(null,{ logIn }
-)(Login);
+export const LoginWithAuth = connect(null, { authenticate })(Login);
+

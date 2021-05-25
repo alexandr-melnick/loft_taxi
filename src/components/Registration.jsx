@@ -12,7 +12,7 @@ export const Registration = ({register}) => {
   const [passwordError, setPasswordError] = useState(false);
   // const [name, setName] = useState(false);
 
-  function authenticate (e) {
+  function registration (e) {
     e.preventDefault();
     const { email, password, name, surname} = e.target;
 
@@ -31,12 +31,14 @@ export const Registration = ({register}) => {
         surname: surname.value })
     }
 
+    localStorage.setItem("email", email.value)
+    localStorage.setItem("password", password.value)
   }
 
   return (
       <div className="form-login">
         <h2>Registration</h2>
-        <form className="form" onSubmit={authenticate}>
+        <form className="form" onSubmit={registration}>
           <Input type="input"
                  size="28"
                  name="email"
