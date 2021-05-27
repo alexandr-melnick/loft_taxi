@@ -1,25 +1,15 @@
 import React from "react";
-import { render, fireEvent } from '@testing-library/react';
-import App from './App';
+import { render } from '@testing-library/react';
+import { WithAuthApp } from './App';
 
-jest.mock('./components/Home', () => ({Home: () => <div>Home Component</div>}));
-jest.mock('./components/Profile', () => ({Profile: () => <div>Profile Component</div>}));
-jest.mock('./components/About', () => ({About: () => <div>About Component</div>}));
+jest.mock("mapbox-gl", () => ({
+  Map: jest.fn(() => ({ remove: () => {} })),
+}));
 
 describe("App", () => {
-  it("renders correctly", () => {
-    const {container} = render(<App />);
-    expect(container.innerHTML).toMatch("Home Component");
-  })
-
-  describe("when clicked on navigation buttons", () => {
-    it("opens the corresponding page ", () => {
-      const {getByText, container} = render(<App />);
-
-      fireEvent.click(getByText('About'));
-      expect(container.innerHTML).toMatch('About Component');
-      fireEvent.click(getByText('Profile'));
-      expect(container.innerHTML).toMatch('Profile Component');
-    })
+  it('render correctly', () => {
+    const { getByTestId } = render(<WithAuthApp/>);
+    // expect(getByTestId('main-section')).toBeInTheDocument();
+    expect(getByTestId('login-section')).toBeInTheDocument();
   });
 })
