@@ -9,10 +9,11 @@ export const userFetchingMiddleware = store => next => action => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({...action.payload})})
-      .then( data => {
+      body: JSON.stringify({ ...action.payload })
+    })
+        .then(data => {
           store.dispatch(setToken(data.token))
-          if(data.token) {
+          if (data.token) {
             store.dispatch(logIn())
           }
         })
@@ -30,7 +31,7 @@ export const serverLogin = async (email, password) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({ email, password })
       })
       .then(res => res.json())
       .then(data => data)
@@ -41,5 +42,17 @@ export const getUserCard = async (token) => {
       `https://loft-taxi.glitch.me/card?token=${token}`
   ).then(res => res.json())
       .then(data => data)
+}
 
+export const saveUserCard = async ({ cardNumber, expiryDate, cardName, cvc, token }) => {
+  return fetch(
+    `https://loft-taxi.glitch.me/card`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ cardNumber, expiryDate, cardName, cvc, token })
+  })
+    .then(res => res.json())
+    .then(data => data)
 }

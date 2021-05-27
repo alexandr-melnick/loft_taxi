@@ -7,7 +7,6 @@ export const authMiddleware = store => next => async (action) => {
     const {success, token} = await serverLogin(email, password);
     if (success) {
        store.dispatch(logIn());
-       console.log(token);
        localStorage.setItem("token", token)
       const userCard = await getUserCard(token);
        localStorage.setItem("userCard", JSON.stringify(userCard));

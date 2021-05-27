@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ucFirst } from "../../utils/caseFirst";
 
-export const Input = ({ type, name, size, placeholder, error, setFunc }) => {
+export const Input = ({ type, name, size, placeholder, error, setFunc, onChange, value }) => {
 
   return (
       <>
@@ -12,9 +12,10 @@ export const Input = ({ type, name, size, placeholder, error, setFunc }) => {
             id={name}
             name={name}
             size={size}
+            value={value}
             placeholder={placeholder}
             className={!error ? "input" : "input-error input"}
-            onChange={() => setFunc(false)}
+            onChange={onChange ? onChange : () => setFunc(false)}
         />
       </>
   );
