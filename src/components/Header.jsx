@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import logo from "../img/logo.png";
 import { NavigationWithAuth } from "./Navigation";
-import PropTypes from "prop-types";
 
 export const Header = ({ pagesUrls }) => {
   return (

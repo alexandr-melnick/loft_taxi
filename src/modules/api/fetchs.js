@@ -54,5 +54,10 @@ export const saveUserCard = async ({ cardNumber, expiryDate, cardName, cvc, toke
     body: JSON.stringify({ cardNumber, expiryDate, cardName, cvc, token })
   })
     .then(res => res.json())
-    .then(data => data)
+    .then(data => {
+      if (data.success) {
+        localStorage.setItem("userCard", JSON.stringify({ cardNumber, expiryDate, cardName, cvc }));
+      }
+      return data
+    })
 }

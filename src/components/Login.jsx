@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { Input } from "./common/Input";
 import { isEmail, validate } from "../utils/validator";
 import { Submit } from "./common/Submit";
-import { connect } from "react-redux";
 import { authenticate } from "../modules/actions";
 
 const Login = ({ authenticate: qwerty }) => {
@@ -28,20 +28,8 @@ const Login = ({ authenticate: qwerty }) => {
       <div className="form-login">
         <h2>Enter</h2>
         <form className="form" onSubmit={authorization}>
-          <Input type="input"
-                 size="28"
-                 name="email"
-                 setFunc={setEmailError}
-                 placeholder="example@email.com"
-                 error={emailError}
-          />
-          <Input type="password"
-                 size="28"
-                 name="password"
-                 setFunc={setPasswordError}
-                 placeholder="enter your password"
-                 error={passwordError}
-          />
+          <Input type="input" size="28" name="email" setFunc={setEmailError} placeholder="example@email.com" error={emailError}/>
+          <Input type="password" size="28" name="password" setFunc={setPasswordError} placeholder="enter your password" error={passwordError}/>
           <span>Forgotten your password?</span>
           <Submit type="submit" id="enter" name="enter" value="Enter"/>
         </form>

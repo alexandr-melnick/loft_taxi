@@ -1,33 +1,48 @@
-import React, { useState } from "react";
-import { Input } from "./common/Input";
+import React, { useState, useEffect } from "react";
 import circle from "../img/circle.png"
 import card from "../img/card.png"
 import logo_card from "../img/logo_card.png"
+import { Input } from "./common/Input";
 import { connect } from "react-redux";
 import { authenticate } from "../modules/actions";
 import { Submit } from "./common/Submit";
-import { saveUserCard } from "../modules/middleWare/fetchs";
+import { saveUserCard, getUserCard } from "../modules/api/fetchs";
+import { setUserCard } from "../modules/actions"
 
 const Profile = ({ userCard, token }) => {
   const [cardNumber, setCardNumber] = useState(userCard?.cardNumber);
-  const [cardDate, setCardDate] = useState(userCard?.expiryDate);
+  const [expiryDate, setCardDate] = useState(userCard?.expiryDate);
   const [cardName, setCardName] = useState(userCard?.cardName);
   const [cardCVC, setCardCVC] = useState(userCard?.cvc);
+  const [error, setError] = useState(null);
 
-  const saveCard = (e) => {
+  useEffect(() => {
+    setCardNumber(userCard.cardNumber);
+    setCardDate(userCard.expiryDate);
+    setCardName(userCard.cardName);
+    setCardCVC(userCard.cvc);
+  }, [userCard]);
+
+
+  const saveCard = async (e) => {
     e.preventDefault();
+    setError(null);
     const cardNumber = e.target.number.value;
     const expiryDate = e.target.MMYY.value;
     const cardName = e.target.name.value;
     const  cvc  = e.target.CVC.value;
-    saveUserCard({cardNumber, expiryDate, cardName, cvc , token})
+    const result = await saveUserCard({ cardNumber, expiryDate, cardName, cvc, token });
+    if (!result.success) setError(result.error)  
+    const userCard = getUserCard(token);
+    setUserCard(userCard);
   }
 
   return (
       <>
         <div className="profile" onSubmit={saveCard}>
-          <h2>Profile</h2>
+        <h2>Profile</h2>
           <span className="profile__desc">Enter your payment details</span>
+          {error && <span>{error}</span>}
           <form className="card-form">
             <div className="card-wrapper">
               <div className="data-card">
@@ -37,7 +52,7 @@ const Profile = ({ userCard, token }) => {
                        onChange={e => setCardNumber(e.target.value)} placeholder="0000 0000 0000 0000"/>
                 <div className="wrap-cvc-date">
                   <div className="wrap-date">
-                    <Input type="input" size="28" name="MMYY" value={cardDate}
+                    <Input type="input" size="28" name="MMYY" value={expiryDate}
                            onChange={e => setCardDate(e.target.value)} placeholder="00/00"/>
                   </div>
                   <div className="wrap-cvc">
@@ -49,7 +64,7 @@ const Profile = ({ userCard, token }) => {
               <div className="card">
                 <div className="card__header">
                   <img src={logo_card} alt="card logo" className="card__logo"/>
-                  <span className="card__date">{cardDate}</span>
+                  <span className="card__date">{expiryDate}</span>
                 </div>
                 <span className="card__number">{cardNumber}</span>
                 <img src={card} alt="card" className="chip"/>
@@ -57,7 +72,7 @@ const Profile = ({ userCard, token }) => {
                 <img src={circle} alt="circle" className="card__circle card__circle--right"/>
               </div>
             </div>
-            <Submit type="submit" id="card-submit" value="Save" name="saveCard"></Submit>
+            <Submit type="submit" id="card-submit" value="Save" name="saveCard"/>
           </form>
         </div>
       </>
