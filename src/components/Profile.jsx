@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import InputMask from "react-input-mask";
 import circle from "../img/circle.png"
 import card from "../img/card.png"
 import logo_card from "../img/logo_card.png"
@@ -45,19 +46,16 @@ const Profile = ({ userCard, token }) => {
           {error && <span>{error}</span>}
           <form className="card-form">
             <div className="card-wrapper">
-              <div className="data-card">
-                <Input type="input" size="28" name="name" value={cardName}
-                       onChange={e => setCardName(e.target.value)} placeholder="your name"/>
-                <Input type="input" size="28" name="number" value={cardNumber}
-                       onChange={e => setCardNumber(e.target.value)} placeholder="0000 0000 0000 0000"/>
+            <div className="data-card">
+              <Input type="text" size="28" name="name" value={cardName} onChange={e => setCardName(e.target.value)} placeholder="your name" maxLength="25" />
+              <Input mask="9999 9999 9999 9999" type="text" size="28" name="number" value={cardNumber} onChange={e => setCardNumber(e.target.value)} placeholder="0000 0000 0000 0000" maxLength="19" />
+              
                 <div className="wrap-cvc-date">
                   <div className="wrap-date">
-                    <Input type="input" size="28" name="MMYY" value={expiryDate}
-                           onChange={e => setCardDate(e.target.value)} placeholder="00/00"/>
+                    <Input mask="12/39" formatChars={{"2": "[0-2]", "1": "[0-1]", "3": "[2-9]", "9": "[0-9]"}} type="text" size="28" name="MMYY" value={expiryDate} onChange={e => setCardDate(e.target.value)} placeholder="00/00" maxLength="5"/>
                   </div>
                   <div className="wrap-cvc">
-                    <Input type="input" size="28" name="CVC" value={cardCVC}
-                           onChange={e => setCardCVC(e.target.value)} placeholder="000"/>
+                    <Input mask="999" type="text" size="28" name="CVC" value={cardCVC} onChange={e => setCardCVC(e.target.value)} placeholder="000" maxLength="3" />
                   </div>
                 </div>
               </div>
@@ -85,4 +83,3 @@ export const WithAuthProfile = connect(
       authenticate: (email, password) => dispatch(authenticate(email, password))
     }))
 (Profile);
-

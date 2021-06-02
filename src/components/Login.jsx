@@ -6,7 +6,7 @@ import { isEmail, validate } from "../utils/validator";
 import { Submit } from "./common/Submit";
 import { authenticate } from "../modules/actions";
 
-const Login = ({ authenticate: qwerty }) => {
+const Login = ({ authenticate }) => {
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -21,12 +21,14 @@ const Login = ({ authenticate: qwerty }) => {
       setEmailError(true);
     }
 
-    qwerty(email.value, password.value)
+    authenticate(email.value, password.value)
   }
 
   return (
       <div className="form-login">
-        <h2>Enter</h2>
+      <h2>Enter</h2>
+      <span className={!emailError ? "hidden invalid" : "invalid"}>Invalid login</span>
+      <span className={!passwordError ? "hidden invalid" : "invalid"}>Invalid password</span>
         <form className="form" onSubmit={authorization}>
           <Input type="input" size="28" name="email" setFunc={setEmailError} placeholder="example@email.com" error={emailError}/>
           <Input type="password" size="28" name="password" setFunc={setPasswordError} placeholder="enter your password" error={passwordError}/>

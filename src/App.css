@@ -152,6 +152,15 @@ label {
     margin-left: 10px;
 }
 
+.invalid {
+    color: red;
+    font-size: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
 /*profile*/
 .profile {
     color: #1C1A19;

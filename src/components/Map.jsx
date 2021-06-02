@@ -21,10 +21,13 @@ export class Map extends Component {
   }
 
   render () {
-    return (
-        <div className='map-wrapper'>
-          <div data-testing='map' className='map' ref={this.mapContainer}/>
-        </div>
-    )
+    return (<>
+      <div >
+          
+      </div>
+      <div className='map-wrapper'>
+        <div data-testing='map' className='map' ref={this.mapContainer}/>
+      </div>
+  </>)
   }
 }
