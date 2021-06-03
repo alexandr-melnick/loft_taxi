@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { Input } from "./common/Input";
 import { Submit } from "./common/Submit";
 import { isEmail, validate } from "../utils/validator";
@@ -10,7 +9,6 @@ import { register } from "../modules/actions";
 export const Registration = ({register}) => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  // const [name, setName] = useState(false);
 
   function registration (e) {
     e.preventDefault();
@@ -18,7 +16,6 @@ export const Registration = ({register}) => {
 
     validate(password.value, setPasswordError);
     validate(email.value, setEmailError);
-    // validate(name.value, setName);
     if (!isEmail(email.value)) {
       setEmailError(true);
     }
@@ -39,49 +36,45 @@ export const Registration = ({register}) => {
       <div className="form-login">
         <h2>Registration</h2>
         <form className="form" onSubmit={registration}>
-          <Input type="input"
-                 size="28"
-                 name="email"
-                 setFunc={setEmailError}
-                 placeholder="example@email.com"
-                 error={emailError}
-          />
-          <Input type="input"
-                 size="28"
-                 name="name"
-                 setFunc={setEmailError}
-                 placeholder="name"
-                 error={emailError}
-          />
-          <Input type="input"
-                 size="28"
-                 name="surname"
-                 setFunc={setEmailError}
-                 placeholder="surname"
-                 error={emailError}
-          />
-          <Input type="password"
-                 size="28"
-                 name="password"
-                 setFunc={setPasswordError}
-                 placeholder="enter your password"
-                 error={passwordError}
-          />
-          <Submit type="submit" id="enter" name="registration" value="Registration"/>
-        </form>
-        <div className="new-user">
-          <span>Already registered?</span>
-          <Link to="/">
-            <span className="go-to-reg">Enter</span>
-          </Link>
-        </div>
+        <Input
+          type="input"
+          size="28"
+          name="email"
+          setFunc={setEmailError}
+          error={emailError}
+        />
+        <Input type="input"
+          size="28"
+          name="name"
+          setFunc={setEmailError}
+          placeholder="name"
+          error={emailError}
+        />
+        <Input type="input"
+          size="28"
+          name="surname"
+          setFunc={setEmailError}
+          placeholder="surname"
+          error={emailError}
+        />
+        <Input
+          type="password"
+          size="28"
+          name="password"
+          setFunc={setPasswordError}
+          placeholder="enter your password"
+          error={passwordError}
+        />
+        <Submit type="submit" id="enter" name="registration" value="Registration" />
+      </form>
+      <div className="new-user">
+        <span>Already registered?</span>
+        <Link to="/">
+          <span className="go-to-reg">Enter</span>
+        </Link>
       </div>
+    </div>
   )
-}
-
-Registration.propTypes = {
-  navigateTo: PropTypes.func,
-  loginPage: PropTypes.string
 }
 
 export const RegistrationWithAuth = connect(null, { register })(Registration);

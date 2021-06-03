@@ -1,7 +1,7 @@
 import React from "react";
 
-export const Submit = ({type, id, name, value }) => {
+export const Submit = ({type, id, name, value, disabled }) => {
   return (
-      <input type={type} id={id} name={name} value={value} readOnly/>
+    <button type={type} id={id} name={name} disabled={disabled} readOnly>{value}</button>
   )
 }

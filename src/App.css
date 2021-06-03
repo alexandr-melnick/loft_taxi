@@ -301,3 +301,131 @@ label {
     right: 0;
     bottom: 0;
 }
+
+/* booking form */
+
+.booking__form {
+    color: black;
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    width: 486px;
+    height: 471px;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.booking__form-wrap {
+    margin-top: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.booking__btn {
+    position: absolute;
+    top: 5px;
+    right: -45px;
+    background: white;
+    border: none;
+}
+
+.booking__btn--bottom {
+    top: 50px;
+}
+
+.rate {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 486px;
+    height: 335px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rate__price-container {
+    display: flex;
+}
+
+.rate__price {
+    width: 110px;
+    height: 160px;
+    background: white;
+    border: none;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: .5;
+}
+
+.rate__price--active {
+    width: 118px;
+    height: 167px;
+    opacity: 1;
+}
+
+.rate__price:last-child {
+    margin-right: 0;
+}
+
+.rate__price h3, .rate__price h5, .rate__price h2  {
+    margin-bottom: 0;
+    margin-left: 5px;
+
+}
+
+.rate__foto-bmv {
+    width: 95px;
+    height: 73px;
+    background: url("./img/bmw.png") center center no-repeat;
+    margin-left: 5px;
+}
+
+.rate__foto-car {
+    width: 95px;
+    height: 73px;
+    margin-left: 5px;
+    background: url("./img/car2.png") center center no-repeat;
+}
+
+.rate__foto-mercedes {
+    width: 95px;
+    margin-left: 5px;
+    height: 73px;
+    background: url("./img/mercedes.png") center center no-repeat;
+}
+
+#order {
+    width: 350px;
+    height: 60px;
+    background: #FDBF5A;
+    border-radius: 70px;
+    font-size: 25px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+#card-submit:active {
+    border: 1px solid black;
+}
+
+.select {
+    border: none;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 25px;
+    width: 335px;
+    font-size: 21px;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom"
-import { LoginWithAuth, Map,  WithAuthProfile, Header } from "./components/";
+import { LoginWithAuth, MapConnected,  WithAuthProfile, Header } from "./components/";
 import { LeftModal} from "./components/common/";
 import { RegistrationWithAuth } from "./components/Registration";
 import { connect } from "react-redux";
@@ -38,19 +38,19 @@ class App extends React.Component {
                     <>
                     <Header pagesUrls={pagesUrls}/> 
                         <section className="section" data-testid="main-section">
-                        <div className = "section__map">
-                                <Route path="/map" component={Map} />
+                            <div className="section__map">
+                                <Route path="/map" component={MapConnected} />
                                 <Route path="/profile" component = {WithAuthProfile}/> 
                         </div > 
                         </section>
                     </>
                 ) : (
-                    <section className="login-section" data-testid="login-section">
-                        <LeftModal/>
+                        <section className="login-section" data-testid="login-section">
+                            <LeftModal />
                             <Route path="/signup" component={RegistrationWithAuth} />
-                            <Route path="/" expect component = {LoginWithAuth}/> 
-                    </section>
-                )
+                            <Route path="/" expect component={LoginWithAuth} />
+                        </section>
+                    )
                 }
             </main>
         )

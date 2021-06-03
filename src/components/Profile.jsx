@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import InputMask from "react-input-mask";
+import { connect } from "react-redux";
 import circle from "../img/circle.png"
 import card from "../img/card.png"
 import logo_card from "../img/logo_card.png"
 import { Input } from "./common/Input";
-import { connect } from "react-redux";
 import { authenticate } from "../modules/actions";
 import { Submit } from "./common/Submit";
 import { saveUserCard, getUserCard } from "../modules/api/fetchs";
@@ -36,6 +35,8 @@ const Profile = ({ userCard, token }) => {
     if (!result.success) setError(result.error)  
     const userCard = getUserCard(token);
     setUserCard(userCard);
+    // добавить условия редиректа
+    window.location.href = '/map'
   }
 
   return (
@@ -52,7 +53,7 @@ const Profile = ({ userCard, token }) => {
               
                 <div className="wrap-cvc-date">
                   <div className="wrap-date">
-                    <Input mask="12/39" formatChars={{"2": "[0-2]", "1": "[0-1]", "3": "[2-9]", "9": "[0-9]"}} type="text" size="28" name="MMYY" value={expiryDate} onChange={e => setCardDate(e.target.value)} placeholder="00/00" maxLength="5"/>
+                    <Input mask="19/29" formatChars={{"1": "[0-1]", "2": "[2-9]", "9": "[0-9]"}} type="text" size="28" name="MMYY" value={expiryDate} onChange={e => setCardDate(e.target.value)} placeholder="00/00" maxLength="5"/>
                   </div>
                   <div className="wrap-cvc">
                     <Input mask="999" type="text" size="28" name="CVC" value={cardCVC} onChange={e => setCardCVC(e.target.value)} placeholder="000" maxLength="3" />
