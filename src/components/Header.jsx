@@ -5,7 +5,7 @@ import { NavigationWithAuth } from "./Navigation";
 
 export const Header = ({ pagesUrls }) => {
   return (
-      <header className="header" data-testid="header">
+      <header className="header">
         <div className="logo">
           <img src={logo} alt="Loft Taxi"/>
         </div>

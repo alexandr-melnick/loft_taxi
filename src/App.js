@@ -37,7 +37,7 @@ class App extends React.Component {
                 {this.props.isLoggedIn ? (
                     <>
                     <Header pagesUrls={pagesUrls}/> 
-                        <section className="section" data-testid="main-section">
+                        <section className="section" >
                             <div className="section__map">
                                 <Route path="/map" component={MapConnected} />
                                 <Route path="/profile" component = {WithAuthProfile}/> 
@@ -45,7 +45,7 @@ class App extends React.Component {
                         </section>
                     </>
                 ) : (
-                        <section className="login-section" data-testid="login-section">
+                        <section className="login-section" >
                             <LeftModal />
                             <Route path="/signup" component={RegistrationWithAuth} />
                             <Route path="/" expect component={LoginWithAuth} />

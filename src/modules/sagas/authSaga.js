@@ -5,7 +5,7 @@ import { getUserCard, serverLogin } from "../api/fetchs";
 export function* authSaga(action) {
   const { email, password } = action.payload;
   const { success, token, error } = yield call(serverLogin, email, password);
-  if (success && success !== "undefined") {
+  if (success) {
     yield put(logIn());
     localStorage.setItem("token", token)
     const userCard = yield call(getUserCard, token);
