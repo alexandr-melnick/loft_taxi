@@ -3,7 +3,6 @@ import mapboxgl from 'mapbox-gl';
 import { connect } from 'react-redux';
 import { BookingFormConnected } from "./BookingForm";
 import { getAddressList } from "../modules/actions"
-import { Submit } from "./common/Submit";
 
 class Map extends PureComponent {
   
