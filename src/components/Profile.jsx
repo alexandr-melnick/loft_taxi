@@ -35,8 +35,9 @@ const Profile = ({ userCard, token }) => {
     if (!result.success) setError(result.error)  
     const userCard = getUserCard(token);
     setUserCard(userCard);
-    // добавить условия редиректа
-    window.location.href = '/map'
+    if (result.success) {
+      window.location.href = '/map'
+    }
   }
 
   return (

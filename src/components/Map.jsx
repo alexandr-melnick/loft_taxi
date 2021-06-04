@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import { connect } from 'react-redux';
 import { BookingFormConnected } from "./BookingForm";
 import { getAddressList } from "../modules/actions"
+import { Submit } from "./common/Submit";
 
 class Map extends PureComponent {
   
@@ -28,8 +29,14 @@ class Map extends PureComponent {
 });
   
   createRoute = () => {
-
     const { map } = this.state;
+
+    const mapLayer = map.getLayer("LineString");
+    if (mapLayer) {
+      map.removeLayer("LineString");
+      map.removeSource("LineString");
+    }
+
     map.addSource('LineString', {
       'type': 'geojson',
       'data': this.geojson(this.props.coords)
@@ -47,8 +54,8 @@ class Map extends PureComponent {
         'line-width': 5
       }
     })
-    var coordinates = this.geojson(this.props.coords).features[0].geometry.coordinates;
-    var bounds = coordinates.reduce(function (bounds, coord) {
+    let coordinates = this.geojson(this.props.coords).features[0].geometry.coordinates;
+    let bounds = coordinates.reduce(function (bounds, coord) {
       return bounds.extend(coord);
     },
       new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
@@ -82,12 +89,16 @@ class Map extends PureComponent {
     map.remove();
   }
 
+  moveToPaymentDetails() {
+    window.location.href = '/profile'
+  }
+
   render() {
     const userCard = JSON.parse(localStorage.getItem('userCard'));
 
     return (
       <>
-        {userCard?.cardNumber && <BookingFormConnected />}
+        {userCard?.cardNumber ?  <BookingFormConnected /> : <button type="button" className="move-to-paymetns" onClick={this.moveToPaymentDetails} > Fill in payments details</button>}
         <div className='map-wrapper'>
           <div data-testing='map' className='map' ref={this.mapContainer} />
         </div>

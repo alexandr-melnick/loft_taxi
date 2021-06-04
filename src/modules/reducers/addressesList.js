@@ -5,7 +5,7 @@ const initialState = { addresses: [] };
 export const addressesList = (state = initialState, action) => {
   switch (action.type) {
     case SET_ADDRESS_LIST: {
-      return { addresses: action.payload };
+      return { ...state, addresses: action.payload };
     }
     default:
       return state

@@ -1,4 +1,5 @@
 export const LOG_IN = 'LOG_IN';
+export const LOG_ERROR = 'LOG_ERROR';
 export const LOG_OUT = 'LOG_OUT';
 export const REGISTER = 'REGISTER';
 export const SET_TOKEN = 'SET_TOKEN';
@@ -14,6 +15,7 @@ export const register = ({ email, password, name, surname }) => ({ type: REGISTE
 export const setToken = (token) => ({ type: SET_TOKEN, payload: token });
 
 export const logIn = () => ({ type: LOG_IN });
+export const logError = (error) => ({ type: LOG_ERROR, payload: error})
 export const logOut = () => ({ type: LOG_OUT });
 
 export const authenticate = (email, password) => ({ type: AUTHENTICATE, payload: { email, password } });

@@ -6,7 +6,7 @@ import { isEmail, validate } from "../utils/validator";
 import { Submit } from "./common/Submit";
 import { authenticate } from "../modules/actions";
 
-const Login = ({ authenticate }) => {
+const Login = ({ authenticate, error }) => {
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -27,8 +27,7 @@ const Login = ({ authenticate }) => {
   return (
       <div className="form-login">
       <h2>Enter</h2>
-      <span className={!emailError ? "hidden invalid" : "invalid"}>Invalid login</span>
-      <span className={!passwordError ? "hidden invalid" : "invalid"}>Invalid password</span>
+      {error && <span className="invalid">AUTHORISATION ERROR</span>}
         <form className="form" onSubmit={authorization}>
           <Input type="input" size="28" name="email" setFunc={setEmailError} placeholder="example@email.com" error={emailError}/>
           <Input type="password" size="28" name="password" setFunc={setPasswordError} placeholder="enter your password" error={passwordError}/>
@@ -45,5 +44,5 @@ const Login = ({ authenticate }) => {
   )
 }
 
-export const LoginWithAuth = connect(null, { authenticate })(Login);
+export const LoginWithAuth = connect((state) => ({ error: state.auth.error }), { authenticate })(Login);
 

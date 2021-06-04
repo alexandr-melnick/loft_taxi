@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, SET_USER_CARD } from "../actions";
+import { LOG_ERROR, LOG_IN, LOG_OUT, SET_USER_CARD } from "../actions";
 
 const initialState = {
   isLoggedIn: !!localStorage.getItem('token'),
@@ -13,6 +13,10 @@ export const auth = (state = initialState, action) => {
     }
     case LOG_OUT: {
       return { ...state, isLoggedIn: false }
+    }
+    case LOG_ERROR: {
+      const { payload:  error  } = action;
+      return { ...state,  error }
     }
     case SET_USER_CARD: {
       const { payload:  userCard  } = action;
