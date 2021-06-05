@@ -1,64 +1,69 @@
-import './App.css';
 import React from "react";
-import {Login} from "./components/Login";
-import {Exit} from "./components/Exit";
-import {Profile} from "./components/Profile";
-import logo from "./img/logo.png";
-import logoWrap from "./img/logo_wrap.png";
-import {NavItem} from "./components/common/NavItem";
-import {Map} from "./components/Map";
+import PropTypes from "prop-types";
+import { Route } from "react-router-dom"
+import { LoginWithAuth, MapConnected,  WithAuthProfile, Header } from "./components/";
+import { LeftModal} from "./components/common/";
+import { RegistrationWithAuth } from "./components/Registration";
+import { connect } from "react-redux";
+import { logIn, setToken, setUserCard } from "./modules/actions";
+import './App.css';
 
-const pagesUrl = {
+export const pagesUrls = {
     login: 'login',
     profile: 'profile',
     map: 'map',
-    exit: 'exit'
+    exit: 'exit',
+    registration: 'registration'
 }
-
-const PAGES = {
-    [pagesUrl.login]: <Login />,
-    [pagesUrl.profile]: <Profile />,
-    [pagesUrl.exit]: <Exit />,
-    [pagesUrl.map]: <Map />
-}
-
 
 class App extends React.Component {
 
-    state = { currentPage: pagesUrl.home};
-
-    navigateTo = (page) => {
-        this.setState({currentPage: page})
-    };
+    componentDidMount() {
+        const { setToken, logIn, setUserCard } = this.props
+        const token = localStorage.getItem("token")
+        if (token && token !== "undefined") {
+            logIn();
+            setToken(token);
+        }
+        const userCard = localStorage.getItem("userCard")
+        if (userCard) {
+            setUserCard(JSON.parse(userCard));
+        }
+    }
 
     render() {
-        return <>
-            <header className="header">
-                <div className="logo">
-                    <img src={logo} alt="Loft Taxi"/>
-                </div>
-                <nav className="nav">
-                    <ul className="nav__list">
-                        <NavItem url={pagesUrl.map} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.login} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.profile} onClick={this.navigateTo} />
-                        <NavItem url={pagesUrl.exit} onClick={this.navigateTo} />
-                    </ul>
-                </nav>
-            </header>
-
+        return (
             <main>
-                <section className="section">
-                    <div className="section__left-block">
-                        <img src={logoWrap} alt="Loft Taxi"/>
-                    </div>
-                    <div className="section__right-block">
-                        {PAGES[this.state.currentPage]}
-                    </div>
-                </section>
+                {this.props.isLoggedIn ? (
+                    <>
+                    <Header pagesUrls={pagesUrls}/> 
+                        <section className="section" >
+                            <div className="section__map">
+                                <Route path="/map" component={MapConnected} />
+                                <Route path="/profile" component = {WithAuthProfile}/> 
+                        </div > 
+                        </section>
+                    </>
+                ) : (
+                        <section className="login-section" >
+                            <LeftModal />
+                            <Route path="/signup" component={RegistrationWithAuth} />
+                            <Route path="/" expect component={LoginWithAuth} />
+                        </section>
+                    )
+                }
             </main>
-        </>
-    }
-};
+        )
+    };
+}
 
-export default App;
+App.propTypes = {
+    pagesUrls: PropTypes.shape({
+        login: PropTypes.string,
+        map: PropTypes.string,
+        profile: PropTypes.string,
+        exit: PropTypes.string
+    }),
+}
+
+export const WithAuthApp = connect( (state) => ({ isLoggedIn: state.auth.isLoggedIn }), { setToken, logIn, setUserCard})(App);
