@@ -4,7 +4,6 @@ import InputMask from "react-input-mask";
 import { ucFirst } from "../../utils/caseFirst";
 
 export const Input = ({ type, name, size, placeholder, error, value, maxLength, mask, formatChars, register }) => {
-  console.log(value);
   const inputRef = useRef(null);
   const { ref, ...rest } = register(name, { value });
   if (mask) {

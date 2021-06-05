@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { BookingFormConnected } from "./BookingForm";
 import { getAddressList } from "../modules/actions"
 
-class Map extends PureComponent {
+export class Map extends PureComponent {
   
   constructor(props) {
     super(props)
@@ -94,7 +94,7 @@ class Map extends PureComponent {
 
   render() {
     const userCard = JSON.parse(localStorage.getItem('userCard'));
-    console.log(userCard);
+    
     return (
       <>
         {userCard?.cardNumber ?  <BookingFormConnected /> : <button type="button" className="move-to-paymetns" onClick={this.moveToPaymentDetails} > Fill in payments details</button>}

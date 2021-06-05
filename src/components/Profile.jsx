@@ -11,7 +11,7 @@ import { saveUserCard, getUserCard } from "../modules/api/fetchs";
 import { setUserCard } from "../modules/actions"
 
 const Profile = ({ userCard, token }) => {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit } = useForm();
   
   const [cardNumber, setCardNumber] = useState(userCard?.cardNumber);
   const [expiryDate, setCardDate] = useState(userCard?.expiryDate);
@@ -20,10 +20,10 @@ const Profile = ({ userCard, token }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setCardNumber(userCard.cardNumber);
-    setCardDate(userCard.expiryDate);
-    setCardName(userCard.cardName);
-    setCardCVC(userCard.cvc);
+    setCardNumber(userCard?.cardNumber);
+    setCardDate(userCard?.expiryDate);
+    setCardName(userCard?.cardName);
+    setCardCVC(userCard?.cvc);
   }, [userCard]);
 
 
@@ -40,13 +40,13 @@ const Profile = ({ userCard, token }) => {
   }
   
   return (
-      <>
-        <div className="profile" >
+    <>
+      <div className="profile" >
         <h2>Profile</h2>
           <span className="profile__desc">Enter your payment details</span>
-          {error && <span>{error}</span>}
-          <form className="card-form" onSubmit={handleSubmit(saveCard)}>
-            <div className="card-wrapper">
+        {error && <span className="test-error">{error}</span>}
+        <form className="card-form" onSubmit={handleSubmit(saveCard)}>
+          <div className="card-wrapper">
             <div className="data-card">
               <Input
                 register={register}
