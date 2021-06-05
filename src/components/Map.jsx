@@ -94,12 +94,12 @@ class Map extends PureComponent {
 
   render() {
     const userCard = JSON.parse(localStorage.getItem('userCard'));
-
+    console.log(userCard);
     return (
       <>
         {userCard?.cardNumber ?  <BookingFormConnected /> : <button type="button" className="move-to-paymetns" onClick={this.moveToPaymentDetails} > Fill in payments details</button>}
         <div className='map-wrapper'>
-          <div data-testing='map' className='map' ref={this.mapContainer} />
+          <div className='map' ref={this.mapContainer} />
         </div>
       </>)
   }

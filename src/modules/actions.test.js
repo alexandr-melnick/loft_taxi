@@ -1,12 +1,12 @@
 import {
   AUTHENTICATE, LOG_ERROR, GET_ADDRESS_LIST, GET_POINTS, REGISTER, LOG_IN, LOG_OUT, SET_ADDRESS_LIST, SET_ROUTE, SET_TOKEN, SET_USER_CARD,
-  authenticate, getAddressList, getPoint, logError, logIn, logOut, register, setAddressList, setRoute, setToken, setUserCard
+  authenticate, getAddressList, getPoint, logError, logIn, logOut, setAddressList, setRoute, setToken, setUserCard, registration
 } from './actions';
 
 describe("tests actions", () => {
   it('test register action', () => {
     const payload = { email: "test@test.com", password: "qwerty", name: "Name", surname: "surname" };
-    const result = register(payload);
+    const result = registration(payload);
     expect(result.type).toEqual(REGISTER);
     expect(result.payload).toEqual(payload);
   });

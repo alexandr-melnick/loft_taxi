@@ -4,64 +4,57 @@ import { Submit } from "./common/Submit";
 import { isEmail, validate } from "../utils/validator";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { register } from "../modules/actions";
+import { registration } from "../modules/actions";
+import { useForm } from "react-hook-form";
 
-export const Registration = ({register}) => {
+export const Registration = ({ registration }) => {
+  const { register, handleSubmit } = useForm();
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  function registration (e) {
-    e.preventDefault();
-    const { email, password, name, surname} = e.target;
-
-    validate(password.value, setPasswordError);
-    validate(email.value, setEmailError);
-    if (!isEmail(email.value)) {
+  function registrationOnserver (data) {
+    const { email, password, name, surname} = data;
+    validate(password, setPasswordError);
+    validate(email, setEmailError);
+    if (!isEmail(email)) {
       setEmailError(true);
     }
-
-    if (email.value && password.value && name.value && surname.value) {
-      register({
-        email: email.value,
-        password: password.value,
-        name: name.value,
-        surname: surname.value })
-    }
-
-    localStorage.setItem("email", email.value)
-    localStorage.setItem("password", password.value)
+    if (email && password && name && surname) registration({ email, password, name, surname })
+    localStorage.setItem("email", email)
+    localStorage.setItem("password", password)
   }
 
   return (
       <div className="form-login">
         <h2>Registration</h2>
-        <form className="form" onSubmit={registration}>
+        <form className="form" onSubmit={handleSubmit(registrationOnserver)}>
         <Input
+          register={register}
           type="input"
           size="28"
           name="email"
-          setFunc={setEmailError}
           error={emailError}
         />
-        <Input type="input"
+        <Input
+          register={register}
+          type="input"
           size="28"
           name="name"
-          setFunc={setEmailError}
           placeholder="name"
           error={emailError}
         />
         <Input type="input"
+          register={register}
           size="28"
           name="surname"
-          setFunc={setEmailError}
           placeholder="surname"
           error={emailError}
         />
         <Input
+          register={register}
           type="password"
           size="28"
           name="password"
-          setFunc={setPasswordError}
           placeholder="enter your password"
           error={passwordError}
         />
@@ -77,4 +70,4 @@ export const Registration = ({register}) => {
   )
 }
 
-export const RegistrationWithAuth = connect(null, { register })(Registration);
+export const RegistrationWithAuth = connect(null, { registration })(Registration);

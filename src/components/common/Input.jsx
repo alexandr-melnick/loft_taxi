@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import InputMask from "react-input-mask";
 import { ucFirst } from "../../utils/caseFirst";
 
-export const Input = ({ type, name, size, placeholder, error, setFunc, onChange, value, maxLength, mask, formatChars}) => {
+export const Input = ({ type, name, size, placeholder, error, value, maxLength, mask, formatChars, register }) => {
+  console.log(value);
+  const inputRef = useRef(null);
+  const { ref, ...rest } = register(name, { value });
   if (mask) {
     return (
       <>
         <label htmlFor={name}>{ucFirst(name)}:</label>
         <InputMask
+          {...rest}
+          ref={(e) => {
+            ref(e)
+            inputRef.current = e
+          }}
           mask={mask}
           maskChar=" "
           id={name}
           formatChars={formatChars}
           placeholder={placeholder}
           value={value}
-          onChange={onChange ? onChange : () => setFunc(false)}
           className={!error ? "input" : "input-error input"}
         />
       </>
@@ -25,6 +32,11 @@ export const Input = ({ type, name, size, placeholder, error, setFunc, onChange,
     <>
       <label htmlFor={name}>{ucFirst(name)}:</label>
       <input
+        {...rest}
+        ref={(e) => {
+          ref(e)
+          inputRef.current = e
+        }}
         type={type}
         id={name}
         name={name}
@@ -33,8 +45,7 @@ export const Input = ({ type, name, size, placeholder, error, setFunc, onChange,
         placeholder={placeholder}
         maxLength={maxLength}
         className={!error ? "input" : "input-error input"}
-        onChange={onChange ? onChange : () => setFunc(false)}
-      />
+      />      
     </>
   );
 }

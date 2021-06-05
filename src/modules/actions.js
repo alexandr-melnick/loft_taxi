@@ -10,7 +10,7 @@ export const SET_ADDRESS_LIST = 'SET_ADDRESS_LIST';
 export const GET_POINTS = 'GET_POINTS';
 export const SET_ROUTE = 'SET_ROUTE';
 
-export const register = ({ email, password, name, surname }) => ({ type: REGISTER, payload: { name, password, email, surname } });
+export const registration = ({ email, password, name, surname }) => ({ type: REGISTER, payload: { name, password, email, surname } });
 
 export const setToken = (token) => ({ type: SET_TOKEN, payload: token });
 
